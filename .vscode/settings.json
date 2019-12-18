@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "todolist",
+            "dialect": "MySQL",
+            "name": "todolist",
+            "password": "gabor",
+            "port": 3306,
+            "server": "localhost",
+            "username": "gabor"
+        }
+    ]
+}
