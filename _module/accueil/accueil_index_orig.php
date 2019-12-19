@@ -1,27 +1,23 @@
-<?php
+﻿<?php
 require "../_include/inc_config.php";
 require "../_entite/user.php";
 $message = "";
 $valide = false;
-       ;
+
 
     if (isset($_POST["Submit"])) {
         extract($_POST);
-        $sql = "select * from utilisateur where ut_username='$username' ";
-        $res = $link->query($sql)->fetchALL();
-        //extract($res);
-        var_dump($passw);
-       var_dump(password_verify($passw,$res[0]["ut_passw"]));
-          if(count($res)==1){      
-            //if (password_verify(trim($passw),$res[0]["ut_passw"])) {
-            if ($passw==$res[0]["ut_passw"]) {
-                // if ($username === $data[$i]["ut_username"]) {
-                $_SESSION["ut_id"] = $res[0]["ut_id"];
-                $_SESSION["ut_username"] = $res[0]["ut_username"];
-                $_SESSION["ut_profil"]= $res[0]["ut_profil"];
+        $data=findAllUser();
+       extract($data);
+       //var_dump($data);
+        echo "la valeur de $passw"        ;
+        for ($i = 0; $i < count($data); ++$i) {
+            if ($username === $data[$i]["ut_username"] && password_verify('$passw', $data[$i]["ut_passw"])) {
+              // if ($username === $data[$i]["ut_username"]) {
+                $_SESSION["ut_id"] = $data[$i]["ut_id"];
+                $_SESSION["ut_username"] = $data[$i]["ut_username"];
+                $_SESSION["ut_profil"]= $data[$i]["ut_profil"];
                 $valide = true;
-            }else {
-                $valide = false;
             }
         }
         if ($valide == true) {
@@ -38,9 +34,9 @@ $valide = false;
         $ut_username = "";
         $ut_passw = "";
         $ut_profil=2 ;
-        /*if(!isset($_COOKIE["mem"])){
+        if(!isset($_COOKIE["mem"])){
            // $_SESSION["ut_profil"]=2;
-        }*/
+        }
     }
 
 

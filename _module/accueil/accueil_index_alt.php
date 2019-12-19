@@ -1,27 +1,23 @@
-<?php
+﻿<?php
 require "../_include/inc_config.php";
 require "../_entite/user.php";
 $message = "";
 $valide = false;
-       ;
+
 
     if (isset($_POST["Submit"])) {
         extract($_POST);
-        $sql = "select * from utilisateur where ut_username='$username' ";
+       
+        $sql = "select * from utilisateur where ut_username=$ut_username ";
         $res = $link->query($sql)->fetchALL();
-        //extract($res);
-        var_dump($passw);
-       var_dump(password_verify($passw,$res[0]["ut_passw"]));
-          if(count($res)==1){      
-            //if (password_verify(trim($passw),$res[0]["ut_passw"])) {
-            if ($passw==$res[0]["ut_passw"]) {
-                // if ($username === $data[$i]["ut_username"]) {
-                $_SESSION["ut_id"] = $res[0]["ut_id"];
-                $_SESSION["ut_username"] = $res[0]["ut_username"];
-                $_SESSION["ut_profil"]= $res[0]["ut_profil"];
+        extract($res);
+          if(count($res==1)){      
+            if (password_verify($passw, $res["ut_passw"])) {
+              // if ($username === $data[$i]["ut_username"]) {
+                $_SESSION["ut_id"] = $res["ut_id"];
+                $_SESSION["ut_username"] = $res["ut_username"];
+                $_SESSION["ut_profil"]= $res["ut_profil"];
                 $valide = true;
-            }else {
-                $valide = false;
             }
         }
         if ($valide == true) {

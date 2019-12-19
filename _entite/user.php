@@ -10,7 +10,8 @@ function delete($id) {
 
 function insertUser($nom,$prenom,$username,$passw,$profil) {    
     global $link;
-    $password = password_hash($passw, PASSWORD_DEFAULT);
+    //$password = password_hash($passw, PASSWORD_DEFAULT);
+    $password= $passw ;
     $sql="insert into utilisateur values (null,'$nom','$prenom','$username','$password','$profil')";
     $link->query($sql);      
 }
